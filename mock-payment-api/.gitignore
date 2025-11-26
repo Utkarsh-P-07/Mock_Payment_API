@@ -1,24 +1,37 @@
 # Python
 __pycache__/
-*.pyc
-
-# Virtual environment
-venv/
-
-# Environment variables
-.env
-
-# VSCode settings
-.vscode/
-
-# Byte-compiled / cache
+*.py[cod]
 *.pyo
 *.pyd
 *.pdb
 
-# macOS / Windows system files
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Environment / secrets
+.env
+.env.*
+
+# Logs
+*.log
+
+# VSCode / IDE settings
+.vscode/
+.idea/
+
+# Test / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Build / packaging
+build/
+dist/
+*.egg-info/
+
+# OS files
 .DS_Store
 Thumbs.db
 
-# IDE folders
-.idea/
