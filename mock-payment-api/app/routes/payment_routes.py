@@ -1,27 +1,17 @@
-from typing import List
+from fastapi import APIRouter
+from app.controllers.payment_controller import create_payment, update_payment, get_all_payments
 
-from fastapi import APIRouter, HTTPException, status
+payment_router = APIRouter()
 
-from ..models.payment import PaymentCaptureRequest, PaymentPublic
-from ..services import capture_payment, list_payments
+@payment_router.post("/")
+async def create_mock_payment(data: dict):
+    return await create_payment(data)
 
-router = APIRouter()
+@payment_router.put("/{order_id}")
+async def update_mock_payment(order_id: str, body: dict):
+    status = body.get("status")
+    return await update_payment(order_id, status)
 
-
-@router.post("/capture", response_model=PaymentPublic, status_code=status.HTTP_201_CREATED)
-async def capture_payment_endpoint(payload: PaymentCaptureRequest):
-    """
-    Mimics Razorpay capture API.
-    """
-    payment = await capture_payment(payload)
-    if not payment:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Order not found")
-    return PaymentPublic(**payment.dict(by_alias=False))
-
-
-@router.get("", response_model=List[PaymentPublic])
-async def list_payments_endpoint(limit: int = 20):
-    payments = await list_payments(limit=limit)
-    return [PaymentPublic(**p.dict(by_alias=False)) for p in payments]
-
-
+@payment_router.get("/")
+async def fetch_payments():
+    return await get_all_payments()

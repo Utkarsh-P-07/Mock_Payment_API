@@ -3,35 +3,38 @@ __pycache__/
 *.py[cod]
 *.pyo
 *.pyd
-*.pdb
+*.pkl
 
-# Virtual environments
+# Virtual Environment
 venv/
+.env/
+ENV/
 .venv/
-env/
 
-# Environment / secrets
-.env
+# Environment Variables
+*.env
 .env.*
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# PyCharm
+.idea/
 
 # Logs
 *.log
 
-# VSCode / IDE settings
-.vscode/
-.idea/
+# Byte-compiled / optimized / DLL files
+*.so
+*.dll
+*.dylib
 
-# Test / coverage
-.pytest_cache/
-.coverage
-htmlcov/
-
-# Build / packaging
-build/
-dist/
-*.egg-info/
-
-# OS files
+# OS Files
 .DS_Store
 Thumbs.db
 
+# Build artifacts
+build/
+dist/
+*.egg-info/

@@ -1,119 +1,116 @@
-## Mock Razorpay Payment API (FastAPI + MongoDB)
-
-This is a simple mock of key Razorpay payment flows built with **FastAPI** and **MongoDB**, designed to be run and tested locally (Windows friendly, VS Code + Postman).
-
-### Tech stack
-- **Backend**: FastAPI
-- **Database**: MongoDB (local or Atlas)
-- **Async driver**: `motor`
-- **Server**: `uvicorn`
+# ⚡ Mock Payment API  
+A production-style Mock Payment Gateway built with **FastAPI**, **MongoDB**, and a clean Razorpay-inspired architecture.  
+This project simulates order creation, payment processing, and status updates — ideal for learning backend architecture, testing payment flows, or integrating into demo apps.
 
 ---
 
-### 1. Setup (Windows + VS Code)
+## 🚀 Features
 
-1. Open the project in VS Code:
-   - Folder: `mock-payment-api`
+### ✅ Payment Gateway Features
+- Create payment orders  
+- Update payment status (created → processing → success/failed)  
+- Generate unique order IDs  
+- Store transactions in MongoDB  
+- Razorpay-style flow without real payments  
 
-2. (Recommended) Create and activate a virtual env in PowerShell:
-   ```powershell
-   cd mock-payment-api
-   python -m venv .venv
-   .venv\Scripts\Activate.ps1
-   ```
+### ✅ User Module
+- Register users  
+- Fetch user list  
+- Auto timestamps  
 
-3. Install dependencies:
-   ```powershell
-   pip install -r requirements.txt
-   ```
+### ✅ Modern FastAPI Structure
+- Controllers (business logic)  
+- Routes (API layer)  
+- Models (data models)  
+- Schemas (response serializers)  
+- Utils (common helpers)  
+- Config (DB connection)  
 
-4. Start MongoDB:
-   - Local MongoDB running on `mongodb://localhost:27017`
-   - Or use MongoDB Atlas and update the URI.
-
-5. (Optional) Create a `.env` file in `mock-payment-api`:
-   ```env
-   MONGO_URI=mongodb://localhost:27017
-   MONGO_DB_NAME=mock_payment_api
-   ```
+### ⚙ Tech Stack
+- **FastAPI** (Backend)
+- **MongoDB** (Database)
+- **Uvicorn** (Server)
+- **Pydantic** (Validation)
+- **Python 3.10+**
 
 ---
 
-### 2. Run the API
+## 📁 Project Structure
 
-From inside `mock-payment-api`:
+Mock_Payment_API/
+│
+├── app/
+│ ├── main.py
+│ ├── config/
+│ │ └── database.py
+│ ├── models/
+│ │ ├── user.py
+│ │ └── payment.py
+│ ├── schemas/
+│ │ ├── user_schema.py
+│ │ └── payment_schema.py
+│ ├── controllers/
+│ │ ├── user_controller.py
+│ │ └── payment_controller.py
+│ ├── routes/
+│ │ ├── user_routes.py
+│ │ └── payment_routes.py
+│ └── utils/
+│ └── helpers.py
+│
+├── .gitignore
+├── README.md
+└── requirements.txt
 
-```powershell
+---
+
+## 🔧 Installation & Setup
+
+### 1️⃣ Clone the repository
+```sh
+git clone https://github.com/your-username/Mock_Payment_API.git
+cd Mock_Payment_API
+
+## Create a Vertual Enviroment
+python -m venv venv
+
+## Activate it
+
+# Windows:
+venv\Scripts\activate
+
+# Mac/Linux:
+source venv/bin/activate
+
+## Install Depndencies
+pip install -r requirements.txt
+
+## Run the FastAPI Server
 uvicorn app.main:app --reload
-```
-
-The API will be available at:
-- Swagger UI: `http://127.0.0.1:8000/docs`
-- ReDoc: `http://127.0.0.1:8000/redoc`
 
 ---
 
-### 3. Core flows (Razorpay style)
+🧱 Folder-Level Explanation
+controllers/
 
-#### a) Create User
-- **Method**: `POST /api/users`
-- **Body (JSON)**:
-  ```json
-  {
-    "name": "Test User",
-    "email": "test@example.com",
-    "contact": "+911234567890"
-  }
-  ```
+Business logic (similar to service layer in MVC).
 
-#### b) Create Order (like Razorpay `orders.create`)
-- **Method**: `POST /api/orders`
-- **Body (JSON)**:
-  ```json
-  {
-    "amount": 50000,
-    "currency": "INR",
-    "receipt": "rcpt_11",
-    "user_id": "USER_ID_FROM_CREATE_USER"
-  }
-  ```
+routes/
 
-#### c) Capture Payment (like Razorpay `payments.capture`)
-- **Method**: `POST /api/payments/capture`
-- **Body (JSON)**:
-  ```json
-  {
-    "order_id": "ORDER_ID_FROM_CREATE_ORDER",
-    "amount": 50000,
-    "currency": "INR"
-  }
-  ```
+API endpoint definitions.
 
-- On success:
-  - A payment document is stored in `payments`.
-  - The related order status is updated to `paid`.
+models/
 
-#### d) List Orders / Payments
-- `GET /api/orders`
-- `GET /api/payments`
+Pydantic models representing data.
 
-#### e) Health check
-- `GET /health`
+schemas/
 
----
+MongoDB → Pydantic → JSON serializers.
 
-### 4. Postman usage
+config/
 
-1. Start the server with `uvicorn`.
-2. In Postman, create a new collection "Mock Razorpay API".
-3. Add requests:
-   - `POST http://127.0.0.1:8000/api/users`
-   - `POST http://127.0.0.1:8000/api/orders`
-   - `POST http://127.0.0.1:8000/api/payments/capture`
-   - `GET http://127.0.0.1:8000/api/orders`
-   - `GET http://127.0.0.1:8000/api/payments`
-4. Inspect created data using MongoDB Compass or `mongosh`.
+Database connection.
 
-This gives you a complete local mock of basic Razorpay-like flows suitable for learning, demos, and integration testing.
+utils/
 
-
+Helper functions, responses, utilities.
