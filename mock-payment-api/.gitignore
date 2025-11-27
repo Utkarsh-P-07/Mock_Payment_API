@@ -1,40 +1,105 @@
-# Python
+###############################################
+# PYTHON
+###############################################
 __pycache__/
 *.py[cod]
+*$py.class
 *.pyo
 *.pyd
-*.pkl
+*.pdb
+*.so
+*.egg-info/
+.eggs/
+build/
+dist/
+develop-eggs/
 
-# Virtual Environment
+###############################################
+# ENVIRONMENTS
+###############################################
 venv/
-.env/
-ENV/
 .venv/
+env/
+ENV/
+env.bak/
+venv.bak/
 
-# Environment Variables
-*.env
+###############################################
+# FASTAPI / UVICORN / LOGS
+###############################################
+*.log
+logs/
+*.pid
+*.sqlite3
+
+###############################################
+# DOTENV / SECRETS
+###############################################
+.env
 .env.*
+*.env
+secrets.json
+config.json
+
+###############################################
+# MONGODB (local data dumps)
+###############################################
+dump/
+data/
+*.bson
+*.lock
+
+###############################################
+# IDE / EDITOR FILES
+###############################################
 
 # VS Code
 .vscode/
+.vscode-settings/
 *.code-workspace
 
-# PyCharm
+# JetBrains / PyCharm
 .idea/
+*.iml
 
-# Logs
-*.log
+###############################################
+# OS JUNK FILES
+###############################################
 
-# Byte-compiled / optimized / DLL files
-*.so
-*.dll
-*.dylib
-
-# OS Files
+# macOS
 .DS_Store
-Thumbs.db
+.DS_Store?
+._*
 
-# Build artifacts
-build/
-dist/
-*.egg-info/
+# Windows
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+ehthumbs.db
+
+###############################################
+# NODE / FRONTEND (future-proof)
+###############################################
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+###############################################
+# TESTING / COVERAGE FILES
+###############################################
+.pytest_cache/
+.coverage
+.cache/
+htmlcov/
+
+###############################################
+# TEMP / BACKUP FILES
+###############################################
+*.tmp
+*.temp
+*.old
+*.bak
+*.orig
+*.swp
+*.swo
